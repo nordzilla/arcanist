@@ -15,7 +15,11 @@ function __arcanist_init_script__() {
     ob_end_clean();
   }
 
-  error_reporting(E_ALL | E_STRICT);
+  $reporting = E_ALL;
+  if (PHP_VERSION_ID < 80400) {
+    $reporting |= E_STRICT;
+  }
+  error_reporting($reporting);
 
   $config_map = array(
     // Always display script errors. Without this, they may not appear, which is
